@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-prom
+  namespace: test
+  annotations:
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: demo.test
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/prom"
+            backend:
+              service:
+                name: "service-prom"
+                port:
+                  number: 9090

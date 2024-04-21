@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-prom
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: prometheus
+  template:
+    metadata:
+      labels:
+        components: prometheus
+    spec:
+      containers:
+        - name: nginx
+          image: prom/prometheus@0.35.0
+          ports:
+            - containerPort: 9090

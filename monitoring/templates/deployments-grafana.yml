@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-grafana
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: grafana
+  template:
+    metadata:
+      labels:
+        components: grafana
+    spec:
+      containers:
+        - name: nginx
+          image: grafana/grafana:10.4.2
+          env:
+            - name: GF_SERVER_DOMAIN
+              value: "demo.test"
+            - name: GF_SERVER_ROOT_URL
+              value: "http://demo.test/grafana"
+            - name: GF_SERVER_SERVE_FROM_SUB_PATH
+              value: "false"
+          ports:
+            - containerPort: 3000

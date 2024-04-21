@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-grafana
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: frontend
+  template:
+    metadata:
+      labels:
+        components: frontend
+    spec:
+      containers:
+        - name: nginx
+          image: grafana/grafana:10.4.2
+          ports:
+            - containerPort: 3000
